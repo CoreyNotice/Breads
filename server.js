@@ -1,5 +1,6 @@
 // DEPENDENCIES
 const express = require('express')
+const breads = require('./controllers/breads_.js')
 
 // CONFIGURATION
 require('dotenv').config()
@@ -12,7 +13,7 @@ app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
 // MIDDLEWARE
 app.use(express.static('public'))
-
+app.use(express.urlencoded({extended:true}))
 
 // ROUTES
 app.get('/', (req, res) => {
@@ -21,8 +22,10 @@ app.get('/', (req, res) => {
   
   // Breads
   const breadsController = require('./controllers/breads_.js')
+// const bread = require('./models/bread.js')
   app.use('/breads', breadsController)
-  
+
+
   // 404 Page
 app.get('*', (req, res) => {
   res.send('404')

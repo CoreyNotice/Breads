@@ -1,5 +1,5 @@
 const React=require ('react')
-const Default= require('./layout/default')
+const Default= require('./layout/Default')
 
 function Show ({bread}){
     // console.log(bread.name)
@@ -11,10 +11,10 @@ function Show ({bread}){
                 and it
                 {
                     bread.hasGluten 
-                    ? <span>does</span>
-                    : <span>does NOT</span> 
+                    ? <span> does </span>
+                    : <span> does <u>not </u> </span> 
                 }
-                have gluten.
+                 have gluten.
             </p>
             <img src={bread.image} alt={bread.name}/>
             <li><a href='/breads'>Go Home</a></li>
