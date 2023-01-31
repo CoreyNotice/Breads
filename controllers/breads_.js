@@ -52,11 +52,12 @@ breads.get('/:arrayIndex', (req, res) => {
   :res.send('404');
 })
 
-  // Delete
-  breads.delete('/:indexArray',(req,res)=>{
-     breads.splice(req.params.indexArray,1)
-     res.status(303).redirect('/breads')
-  })
+// DELETE
+breads.delete('/:indexArray', (req, res) => {
+  Bread.splice(req.params.indexArray, 1)
+  res.status(303).redirect('/breads')
+})
+
 
   // Bread[req.params.arrayIndex]
   //  ? res.render('show',{
