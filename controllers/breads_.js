@@ -3,17 +3,21 @@ const Baker= require('../models/baker.js')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
 
-// INDEX
-//GET
+// Index:
 breads.get('/', (req, res) => {
-  Bread.find()
+  Baker.find()
+    .then(foundBakers => {
+      Bread.find()
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
+              bakers: foundBakers,
               title: 'Index Page'
           })
       })
+    })
 })
+
 
   // res.render('index',
   //   {
@@ -33,22 +37,28 @@ breads.get('/new', (req, res) => {
   })
   
 })
+
 // EDIT
 breads.get('/:id/edit', (req, res) => {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
-      })
+  Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
+          .then(foundBread => {
+            res.render('edit', {
+                bread: foundBread, 
+                bakers: foundBakers 
+            })
+          })
     })
 })
 
 
 
 
+
 // SHOW
 breads.get('/:id', (req, res) => {
-  Bread.findById(req.params.id)
+  Bread.findById(req.params.id).populate('baker')
       .then(foundBread => {
         const bakedBy = foundBread.getBakedBy() 
      
@@ -110,6 +120,7 @@ breads.put('/:id', (req, res) => {
 
 
 
+
 // DELETE
 breads.delete('/:id', (req, res) => {
   Bread.findByIdAndDelete(req.params.id) 
@@ -131,3 +142,7 @@ breads.delete('/:id', (req, res) => {
   
 
 module.exports = breads
+
+
+
+
